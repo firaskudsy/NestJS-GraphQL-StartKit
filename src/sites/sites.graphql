@@ -1,0 +1,49 @@
+scalar JSON
+scalar Date
+
+enum QueryOne {
+  findById
+  findBySID
+}
+
+enum QueryMany {
+  findBySID
+}
+
+enum Aggregate {
+  aggregate
+}
+
+type Query {
+  sites(first: Int, skip: Int, where: JSON, sort: JSON, aggregation: JSON): [Sites]
+  sites_fineById(_id: ID): Sites
+  sites_queryOne(query: QueryOne, data: JSON): Sites
+  sites_queryMany(query: QueryMany, data: JSON): [Sites]
+  sites_aggregate(query: Aggregate, data: JSON): [Sites]
+
+
+}
+
+type Mutation {
+  sites_create(data: JSON): Sites
+  sites_updateOne(where: JSON, data: JSON): Sites
+  sites_updateMany(where: JSON, data: JSON): Sites
+  sites_deleteOneById(_id: ID): Sites
+  sites_deleteBySID(sid: ID): [Sites]
+  sites_deleteByQuery(where: JSON): [Sites]
+}
+
+type Subscription {
+  sitesAdded: Sites
+  sitesUpdated: Sites
+  sitesDeleted: Sites
+}
+
+type Sites {
+  _id: ID
+  name: String
+  title: String
+  subtitle: String
+  image: String
+ 
+}

@@ -1,0 +1,38 @@
+scalar JSON
+scalar Date
+
+type Mutation {
+  accounts_create(data: JSON): Accounts
+  accounts_updateOne(where: JSON, data: JSON): Accounts
+  accounts_updateMany(where: JSON, data: JSON): Accounts
+}
+
+type Query {
+  accounts(first: Int, skip: Int, where: JSON, sort: JSON, aggregation: JSON): [Accounts]
+  accounts_findById(_id: ID): Accounts
+  login(email: String, password: String, realm: String): AccessToken
+  register(email: String, password: String, realm: String, firstname: String, lastname: String, phone: String): AccessToken
+}
+
+type Subscription {
+  accountsAdded: Accounts
+  accountsUpdated: Accounts
+  accountsDeleted: Accounts
+}
+type AccessToken {
+  _id: String
+  ttl: String
+  created: String
+  userId: String
+}
+
+type Accounts {
+  _id: ID
+  register_date: Date
+  firstname: String
+  lastname: String
+  phone: String
+  realm: String
+  email: String
+  password: String
+}
